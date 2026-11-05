@@ -1,0 +1,159 @@
+════════════════════════════════════════════════════════════════════════════════════════════════════
+bearing · seed 1: J3 bearing wear from 360 min
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+RUN VALUES
+──────────
+  data         43,200 s at 1 Hz (12 h), after 1 h of burn-in that is discarded
+  event        starts at 360 min, reaches full size at 420 min
+  fast tree    12 streams, one sample every 1 s, test every 120 samples (2 min), warm-up 60 min, merge grace 600 samples (10 min)
+  slow tree    6 streams, one sample every 30 s, test every 60 samples (30 min), warm-up 180 min, merge grace 600 samples (300 min)
+  ODAC         confidence_level=0.05, tau=0.1; streams standardized on the first 10 min, then × 0.1
+  static rule  any T > 70 °C or any V > 4.5 mm/s
+  speed        25.1 µs/sample fast tree, 23.5 µs/sample slow tree
+
+STREAMS
+───────
+            | 0-360 min                      | 420-720 min                    |
+            |    mean     sd     min     max |    mean     sd     min     max |   Δmean  s over limit
+  I1 A      |    1.25   1.33   -0.31    5.56 |    1.30   1.39   -0.30    5.69 |   +0.05              
+  I2 A      |    5.65   1.93    3.23   11.17 |    5.71   1.99    3.36   11.09 |   +0.06              
+  I3 A      |    3.79   1.51    1.83    8.47 |    3.84   1.56    1.64    8.51 |   +0.05              
+  I4 A      |    0.33   0.32   -0.38    1.97 |    0.34   0.33   -0.45    1.89 |   +0.01              
+  I5 A      |    0.79   0.33   -0.01    1.91 |    0.80   0.34    0.04    1.95 |   +0.01              
+  I6 A      |    0.22   0.30   -0.52    1.74 |    0.22   0.31   -0.50    1.61 |   +0.00              
+  V1 mm/s   |    0.76   0.55    0.08    2.72 |    0.79   0.58    0.11    2.84 |   +0.02             0
+  V2 mm/s   |    0.85   0.48    0.18    2.69 |    0.88   0.50    0.21    2.61 |   +0.02             0
+  V3 mm/s   |    0.87   0.48    0.20    2.76 |    1.14   0.81    0.20    4.16 |   +0.27             0
+  V4 mm/s   |    0.38   0.20    0.01    1.41 |    0.39   0.21   -0.01    1.48 |   +0.01             0
+  V5 mm/s   |    0.37   0.14    0.01    0.94 |    0.38   0.15    0.02    0.94 |   +0.01             0
+  V6 mm/s   |    0.38   0.21   -0.02    1.44 |    0.39   0.22   -0.04    1.48 |   +0.01             0
+  T1 °C     |   38.12   3.50   30.10   47.50 |   39.17   3.62   31.40   48.70 |   +1.05             0
+  T2 °C     |   58.44   2.71   50.40   65.20 |   59.02   2.83   51.50   67.50 |   +0.58             0
+  T3 °C     |   52.74   2.86   44.70   59.90 |   55.33   3.16   46.90   64.30 |   +2.58             0
+  T4 °C     |   33.44   1.88   28.60   38.50 |   33.92   1.95   29.50   39.10 |   +0.48             0
+  T5 °C     |   35.93   1.15   32.40   39.00 |   36.15   1.19   33.10   40.10 |   +0.23             0
+  T6 °C     |   31.32   1.64   27.00   36.00 |   31.76   1.67   27.80   36.10 |   +0.44             0
+
+RESULT
+──────
+  ODAC alerts   1, first at 444.0 min (+84.0 min from onset)
+  localization  split at 578.0 min isolates V3; sensors that changed group: I2 I3 V2 V3
+  static rule   no alarm
+  final leaves  fast tree 5, slow tree 1
+  note          the slow tree stayed a single root: nothing to merge, so it could not alert in this run
+
+ALERTS
+──────
+  ▲ ALERT  444.0 min (+84.0 min from onset), fast tree
+      merge  [V2 V3] + [I2 I3] → [I2 I3 V2 V3]
+      fired  leaf [V2 V3] n=3,120: d1 0.247 - parent d1 0.223 = 0.024 > max(e, parent e) = 0.022
+      moved  I2 I3 V2 V3
+  no static alarm
+
+ODAC EVENTS (every structure change; an alert is a merge after warm-up)
+───────────────────────────────────────────────────────────────────────
+     4.0 min  fast  split  2 leaves  warm-up
+      [I1 I2 I3 I4 I5 I6 V1 V2 V3 V4 V5 V6] → [I2 I3 I5 V2 V3 V5] + [I1 I4 I6 V1 V4 V6]
+      leaf [I1 I2 I3 I4 I5 I6 V1 V2 V3 V4 V5 V6] n=240: d1 0.881 on I2-I4, d1-d2 0.001, (d1-d0)|d1+d0-2avg| 0.207, e 0.079, tau 0.1
+    14.0 min  fast  split  3 leaves  warm-up
+      [I1 I4 I6 V1 V4 V6] → [I1 V1] + [I4 I6 V4 V6]
+      leaf [I1 I4 I6 V1 V4 V6] n=600: d1 0.485 on I1-I6, d1-d2 0.001, (d1-d0)|d1+d0-2avg| 0.055, e 0.050, tau 0.1
+    16.0 min  fast  split  4 leaves  warm-up
+      [I2 I3 I5 V2 V3 V5] → [I2 I3 V2 V3] + [I5 V5]
+      leaf [I2 I3 I5 V2 V3 V5] n=720: d1 0.560 on V2-V5, d1-d2 0.003, (d1-d0)|d1+d0-2avg| 0.046, e 0.046, tau 0.1
+   392.0 min  fast  split  5 leaves  
+      [I2 I3 V2 V3] → [I2 I3] + [V2 V3]
+      leaf [I2 I3 V2 V3] n=22,560: d1 0.223 on I2-V2, d1-d2 0.006, (d1-d0)|d1+d0-2avg| 0.008, e 0.008, tau 0.1
+   444.0 min  fast  merge  4 leaves  ▲ ALERT
+      [V2 V3] + [I2 I3] → [I2 I3 V2 V3]
+      leaf [V2 V3] n=3,120: d1 0.247 - parent d1 0.223 = 0.024 > max(e, parent e) = 0.022
+   578.0 min  fast  split  5 leaves  
+      [I2 I3 V2 V3] → [I2 I3 V2] + [V3]
+      leaf [I2 I3 V2 V3] n=8,040: d1 0.252 on V2-V3, d1-d2 0.010, (d1-d0)|d1+d0-2avg| 0.014, e 0.014, tau 0.1
+
+ODAC TREES (d1: largest rnomc in the leaf; a one-sensor leaf uses its variance; frozen: values at its split)
+────────────────────────────────────────────────────────────────────────────────────────────────────────────
+fast tree, 60.0 min, end of warm-up
+  ROOT                         frozen  n=240    d1=0.881 d2=0.880 e=0.079
+  ├── CH1_LVL_1                frozen  n=720    d1=0.560 d2=0.558 e=0.046
+  │   ├── CH1_LVL_2            leaf    n=2,641  d0=0.074 avg=0.173 d1=0.222 d2=0.216 e=0.024  [I2 I3 V2 V3]  farthest I2-V2
+  │   │       rnomc I2-I3=0.074  I2-V2=0.222  I2-V3=0.216  I3-V2=0.206  I3-V3=0.190  V2-V3=0.132
+  │   └── CH2_LVL_2            leaf    n=2,641  d1=0.397 e=0.024  [I5 V5]
+  └── CH2_LVL_1                frozen  n=600    d1=0.485 d2=0.484 e=0.050
+      ├── CH1_LVL_2            leaf    n=2,761  d1=0.127 e=0.023  [I1 V1]
+      └── CH2_LVL_2            leaf    n=2,761  d0=0.267 avg=0.311 d1=0.336 d2=0.322 e=0.023  [I4 I6 V4 V6]  farthest I4-I6
+              rnomc I4-I6=0.336  I4-V4=0.311  I4-V6=0.311  I6-V4=0.322  I6-V6=0.322  V4-V6=0.267
+
+fast tree, 392.0 min, just before the split
+  ROOT                         frozen  n=240    d1=0.881 d2=0.880 e=0.079
+  ├── CH1_LVL_1                frozen  n=720    d1=0.560 d2=0.558 e=0.046
+  │   ├── CH1_LVL_2            leaf    n=22,560 d0=0.075 avg=0.177 d1=0.223 d2=0.218 e=0.008  [I2 I3 V2 V3]  farthest I2-V2
+  │   │       rnomc I2-I3=0.075  I2-V2=0.223  I2-V3=0.218  I3-V2=0.208  I3-V3=0.195  V2-V3=0.141
+  │   └── CH2_LVL_2            leaf    n=22,559 d1=0.396 e=0.008  [I5 V5]
+  └── CH2_LVL_1                frozen  n=600    d1=0.485 d2=0.484 e=0.050
+      ├── CH1_LVL_2            leaf    n=22,679 d1=0.126 e=0.008  [I1 V1]
+      └── CH2_LVL_2            leaf    n=22,679 d0=0.279 avg=0.319 d1=0.346 d2=0.332 e=0.008  [I4 I6 V4 V6]  farthest I4-I6
+              rnomc I4-I6=0.346  I4-V4=0.315  I4-V6=0.312  I6-V4=0.333  I6-V6=0.332  V4-V6=0.279
+
+fast tree, 444.0 min, just before the merge (▲ ALERT)
+  ROOT                         frozen  n=240    d1=0.881 d2=0.880 e=0.079
+  ├── CH1_LVL_1                frozen  n=720    d1=0.560 d2=0.558 e=0.046
+  │   ├── CH1_LVL_2            frozen  n=22,560 d1=0.223 d2=0.218 e=0.008
+  │   │   ├── CH1_LVL_3        leaf    n=3,120  d1=0.075 e=0.022  [I2 I3]
+  │   │   └── CH2_LVL_3        leaf    n=3,120  d1=0.247 e=0.022  [V2 V3]
+  │   └── CH2_LVL_2            leaf    n=25,679 d1=0.397 e=0.008  [I5 V5]
+  └── CH2_LVL_1                frozen  n=600    d1=0.485 d2=0.484 e=0.050
+      ├── CH1_LVL_2            leaf    n=25,799 d1=0.125 e=0.008  [I1 V1]
+      └── CH2_LVL_2            leaf    n=25,799 d0=0.279 avg=0.319 d1=0.346 d2=0.333 e=0.008  [I4 I6 V4 V6]  farthest I4-I6
+              rnomc I4-I6=0.346  I4-V4=0.315  I4-V6=0.312  I6-V4=0.333  I6-V6=0.332  V4-V6=0.279
+
+fast tree, 578.0 min, just before the split
+  ROOT                         frozen  n=240    d1=0.881 d2=0.880 e=0.079
+  ├── CH1_LVL_1                frozen  n=720    d1=0.560 d2=0.558 e=0.046
+  │   ├── CH1_LVL_2            leaf    n=8,040  d0=0.074 avg=0.201 d1=0.252 d2=0.242 e=0.014  [I2 I3 V2 V3]  farthest V2-V3
+  │   │       rnomc I2-I3=0.074  I2-V2=0.212  I2-V3=0.242  I3-V2=0.197  I3-V3=0.230  V2-V3=0.252
+  │   └── CH2_LVL_2            leaf    n=33,719 d1=0.390 e=0.007  [I5 V5]
+  └── CH2_LVL_1                frozen  n=600    d1=0.485 d2=0.484 e=0.050
+      ├── CH1_LVL_2            leaf    n=33,839 d1=0.123 e=0.007  [I1 V1]
+      └── CH2_LVL_2            leaf    n=33,839 d0=0.272 avg=0.314 d1=0.342 d2=0.328 e=0.007  [I4 I6 V4 V6]  farthest I4-I6
+              rnomc I4-I6=0.341  I4-V4=0.309  I4-V6=0.306  I6-V4=0.328  I6-V6=0.325  V4-V6=0.272
+
+fast tree, 720.0 min, end of run
+  ROOT                         frozen  n=240    d1=0.881 d2=0.880 e=0.079
+  ├── CH1_LVL_1                frozen  n=720    d1=0.560 d2=0.558 e=0.046
+  │   ├── CH1_LVL_2            frozen  n=8,040  d1=0.252 d2=0.242 e=0.014
+  │   │   ├── CH1_LVL_3        leaf    n=8,520  d0=0.073 avg=0.165 d1=0.219 d2=0.203 e=0.013  [I2 I3 V2]  farthest I2-V2
+  │   │   │       rnomc I2-I3=0.073  I2-V2=0.219  I3-V2=0.203
+  │   │   └── CH2_LVL_3        leaf    n=8,520  var=0.019 e=0.013  [V3]
+  │   └── CH2_LVL_2            leaf    n=42,240 d1=0.389 e=0.006  [I5 V5]
+  └── CH2_LVL_1                frozen  n=600    d1=0.485 d2=0.484 e=0.050
+      ├── CH1_LVL_2            leaf    n=42,360 d1=0.123 e=0.006  [I1 V1]
+      └── CH2_LVL_2            leaf    n=42,360 d0=0.271 avg=0.312 d1=0.340 d2=0.327 e=0.006  [I4 I6 V4 V6]  farthest I4-I6
+              rnomc I4-I6=0.340  I4-V4=0.307  I4-V6=0.306  I6-V4=0.327  I6-V6=0.323  V4-V6=0.271
+
+slow tree, 180.0 min, end of warm-up
+  ROOT                         leaf    n=361    d0=0.048 avg=0.126 d1=0.217 d2=0.195 e=0.065  [T1 T2 T3 T4 T5 T6]  farthest T1-T2
+      rnomc T1-T2=0.217  T1-T3=0.157  T1-T4=0.048  T1-T5=0.185  T1-T6=0.065  T2-T3=0.068
+            T2-T4=0.193  T2-T5=0.073  T2-T6=0.195  T3-T4=0.133  T3-T5=0.061  T3-T6=0.133
+            T4-T5=0.158  T4-T6=0.048  T5-T6=0.155
+
+slow tree, 719.5 min, end of run
+  ROOT                         leaf    n=1,440  d0=0.055 avg=0.161 d1=0.220 d2=0.208 e=0.032  [T1 T2 T3 T4 T5 T6]  farthest T1-T2
+      rnomc T1-T2=0.220  T1-T3=0.206  T1-T4=0.070  T1-T5=0.208  T1-T6=0.081  T2-T3=0.158
+            T2-T4=0.204  T2-T5=0.098  T2-T6=0.195  T3-T4=0.206  T3-T5=0.180  T3-T6=0.194
+            T4-T5=0.173  T4-T6=0.055  T5-T6=0.165
+
+
+RNOMC PAIRS THAT CHANGED MOST (rolling mean: up to 360 min, windows touching the event, after it)
+─────────────────────────────────────────────────────────────────────────────────────────────────
+  Ranked by change / wander, where wander is the sd of the pair's rolling rnomc before the event.
+  pair   tracked by  same leaf   before  during   after  change  wander  ratio   ODAC's own
+  V2-V3  fast tree   yes          0.137   0.196   0.258  +0.120   0.016    7.4   0.252, last seen at 578 min
+  V1-V3  fast tree   no           0.608   0.624   0.642  +0.034   0.011    3.2   0.663, last seen at 4 min
+  I3-V3  fast tree   yes          0.192   0.205   0.240  +0.048   0.018    2.7   0.230, last seen at 578 min
+  I1-V3  fast tree   no           0.620   0.632   0.649  +0.029   0.012    2.4   0.678, last seen at 4 min
+  I5-V3  fast tree   no           0.520   0.505   0.499  -0.020   0.009    2.3   0.530, last seen at 16 min
+  I2-V3  fast tree   yes          0.214   0.222   0.251  +0.037   0.016    2.2   0.242, last seen at 578 min
+
+Checks passed: traced events match run_poc.evaluate(), and the margins explain every firing.

@@ -1,0 +1,1872 @@
+[
+  {
+    "scenario": "normal",
+    "seed": 1,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.0,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 2,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 24.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 3,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.4,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 4,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 24.4,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 5,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 29.3,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 6,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 27.5,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 7,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 26.1,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 8,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.4,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 9,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 26.6,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "normal",
+    "seed": 10,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 30.6,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 1,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 409.5,
+    "static_alarm_s": 5785,
+    "us_per_sample_fast": 24.3,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 2,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 427.7,
+    "static_alarm_s": 5502,
+    "us_per_sample_fast": 24.9,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 3,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 403.3,
+    "static_alarm_s": 8547,
+    "us_per_sample_fast": 32.2,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 4,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 414.7,
+    "static_alarm_s": 6346,
+    "us_per_sample_fast": 25.5,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 5,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 392.6,
+    "static_alarm_s": 6134,
+    "us_per_sample_fast": 34.4,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 6,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 403.7,
+    "static_alarm_s": 7235,
+    "us_per_sample_fast": 27.8,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 7,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 414.5,
+    "static_alarm_s": 8049,
+    "us_per_sample_fast": 24.4,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 8,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 426.2,
+    "static_alarm_s": 7310,
+    "us_per_sample_fast": 24.3,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 9,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 416.9,
+    "static_alarm_s": 7074,
+    "us_per_sample_fast": 40.8,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "summer",
+    "seed": 10,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": 406.1,
+    "static_alarm_s": 8932,
+    "us_per_sample_fast": 27.9,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 1,
+    "onset_min": 360.0,
+    "first_alert_min": 444.0,
+    "localized": {
+      "t_min": 578.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 27.5,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 2,
+    "onset_min": 360.0,
+    "first_alert_min": 424.0,
+    "localized": {
+      "t_min": 538.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 28.6,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 3,
+    "onset_min": 360.0,
+    "first_alert_min": 460.0,
+    "localized": {
+      "t_min": 572.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 27.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 4,
+    "onset_min": 360.0,
+    "first_alert_min": 430.0,
+    "localized": {
+      "t_min": 548.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.9,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 5,
+    "onset_min": 360.0,
+    "first_alert_min": 442.0,
+    "localized": {
+      "t_min": 532.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 28.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 6,
+    "onset_min": 360.0,
+    "first_alert_min": 440.0,
+    "localized": {
+      "t_min": 536.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 7,
+    "onset_min": 360.0,
+    "first_alert_min": 452.0,
+    "localized": {
+      "t_min": 544.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 29.4,
+    "fast_healthy": [
+      [
+        "I1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V1",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 8,
+    "onset_min": 360.0,
+    "first_alert_min": 428.0,
+    "localized": {
+      "t_min": 502.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 24.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 9,
+    "onset_min": 360.0,
+    "first_alert_min": 434.0,
+    "localized": {
+      "t_min": 548.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.2,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "bearing",
+    "seed": 10,
+    "onset_min": 360.0,
+    "first_alert_min": 444.0,
+    "localized": {
+      "t_min": 580.0,
+      "isolated": [
+        "V3"
+      ],
+      "moved": [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ]
+    },
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 24.9,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 1,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 1,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.9,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 2,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 3,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.8,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 4,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 26.2,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 5,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 26.0,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 6,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 26.0,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 7,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.6,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 8,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 9,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.7,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  },
+  {
+    "scenario": "gain",
+    "seed": 10,
+    "onset_min": 360.0,
+    "first_alert_min": null,
+    "localized": null,
+    "static_first_min": null,
+    "static_alarm_s": 0,
+    "us_per_sample_fast": 25.6,
+    "fast_healthy": [
+      [
+        "I1",
+        "V1"
+      ],
+      [
+        "I2",
+        "I3",
+        "V2",
+        "V3"
+      ],
+      [
+        "I4",
+        "I6",
+        "V4",
+        "V6"
+      ],
+      [
+        "I5",
+        "V5"
+      ]
+    ],
+    "slow_healthy": [
+      [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    ],
+    "n_alerts": 0,
+    "alerts_before_onset": 0
+  }
+]
