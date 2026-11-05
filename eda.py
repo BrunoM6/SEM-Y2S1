@@ -4,7 +4,8 @@ run_poc.py and shows what happens inside it.
 
 Written to results/eda/<scenario>_seed<seed>/ for each run:
   report.txt             (also printed) run values, stream statistics, results, alerts with the
-                         test values that fired them, ODAC trees with their values, top pairs
+                         test values that fired them, ODAC trees with their values, top pairs,
+                         feasibility figures (state size, speed, data sent, samples per decision)
   1_streams.png          the 18 sensor streams and the speed override
   2_trees.png            ODAC trees at the end of warm-up, just before each later event, at the end
   3_odac_tests.png       leaf diameters and how close each leaf is to a merge or a split
@@ -34,6 +35,8 @@ import contextlib
 import itertools
 import math
 import statistics
+import sys
+import types
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -46,6 +49,13 @@ from river.cluster import odac as river_odac
 
 import run_poc  # importing it applies the odac_patch changes
 from robot_sim import BURN_IN, DURATION, FAULT_RAMP, FAULT_START, T_LIMIT, V_LIMIT, simulate
+
+# Assumptions behind the feasibility figures, the same ones the Feasibility slide uses
+BYTES_PER_VALUE = 4          # 30 channels x 100 Hz x 4 B = the slide's 1.04 GB/day
+HEARTBEAT_B = 1000           # a 1 kB tree heartbeat...
+HEARTBEAT_EVERY_S = 600      # ...every 10 min
+SNAPSHOT_S = 600             # 10 min of data sent per alert
+STATE_BYTES_PER_VALUE = 8    # 495 values x 8 B = the slide's 4 kB for 30 channels
 
 OUT = run_poc.OUT / "eda"
 TREES = {"fast": run_poc.FAST, "slow": run_poc.SLOW}
@@ -85,6 +95,22 @@ def freeze(node) -> dict:
         "pairs": node._calculate_rnomc_dict() if has_pairs else {},
         "children": [freeze(k) for k in kids],
     }
+
+
+def deep_size(obj, seen: set | None = None) -> int:
+    """Bytes of Python memory held by an object and everything it references."""
+    seen = set() if seen is None else seen
+    if id(obj) in seen or isinstance(obj, (type, types.ModuleType, types.FunctionType)):
+        return 0
+    seen.add(id(obj))
+    size = sys.getsizeof(obj)
+    if isinstance(obj, dict):
+        size += sum(deep_size(k, seen) + deep_size(v, seen) for k, v in obj.items())
+    elif isinstance(obj, (list, tuple, set, frozenset)):
+        size += sum(deep_size(x, seen) for x in obj)
+    if hasattr(obj, "__dict__"):
+        size += deep_size(vars(obj), seen)
+    return size
 
 
 def test_values(leaf) -> dict:
@@ -168,11 +194,14 @@ def trace_tree(Z: dict[str, np.ndarray], cfg: dict) -> dict:
     with tap_leaf_tests(before, fired):
         for k in range(n):
             model.learn_one({s: float(Z[s][k]) for s in names})
+            if k == 0:
+                out["memory_start"] = deep_size(model)  # the root, tracking every pair: the largest it gets
             if out["warmup"] is None and k * rate >= cfg["warmup_s"]:
                 out["warmup"] = {"t_s": k * rate, "tree": freeze(model._root_node)}
             if model.structure_changed:
                 out["changes"].append((round(k * rate / 60, 1), run_poc.leaves(model)))
     out["final"] = {"t_s": (n - 1) * rate, "tree": freeze(model._root_node)}
+    out["memory_end"] = deep_size(model)
     return out
 
 
@@ -305,6 +334,32 @@ def group(sensors) -> str:
     return "[" + " ".join(sensors) + "]"
 
 
+def alert_firing(run: Run, alert: dict) -> dict | None:
+    """The leaf test that raised this alert."""
+    return next((f for f in run.trace[alert["tree"]]["fired"]
+                 if f["kind"] == "merge" and minutes(f["t_s"]) == alert["t_min"]), None)
+
+
+def compact_state(sensor_groups: list) -> int:
+    """ODAC's state as the Feasibility slide counts it: one sum per pair and two per sensor."""
+    values = sum(len(g) * (len(g) - 1) // 2 + 2 * len(g) for g in sensor_groups)
+    return values * STATE_BYTES_PER_VALUE
+
+
+def stream_per_day(n_streams: int) -> int:
+    return n_streams * BYTES_PER_VALUE * 86400
+
+
+def sent_per_day(n_streams: int, alerts: int) -> float:
+    """Bytes sent upstream per day: the tree heartbeats plus one snapshot per alert."""
+    return 86400 / HEARTBEAT_EVERY_S * HEARTBEAT_B + alerts * n_streams * BYTES_PER_VALUE * SNAPSHOT_S
+
+
+def bound_at(n: int) -> float:
+    """The Hoeffding bound e after n samples, as River computes it."""
+    return math.sqrt(math.log(1 / run_poc.CONF) / (2 * n))
+
+
 def after_onset(run: Run, t_min: float) -> str:
     if run.scenario == "normal":
         return "no event in this scenario"
@@ -427,7 +482,7 @@ def report(run: Run, say, top: int, chosen: list) -> None:
     if not run.alerts:
         say("  no ODAC alert")
     for a in run.alerts:
-        f = next((f for f in run.trace[a["tree"]]["fired"] if f["kind"] == "merge" and minutes(f["t_s"]) == a["t_min"]), None)
+        f = alert_firing(run, a)
         say(f"  ▲ ALERT  {a['t_min']} min ({after_onset(run, a['t_min'])}), {a['tree']} tree")
         if f:
             say(f"      merge  {group(f['sensors'])} + {group(f['sibling_sensors'])} → {group(f['parent_sensors'])}")
@@ -485,6 +540,35 @@ def report(run: Run, say, top: int, chosen: list) -> None:
         say(f"  {'-'.join(pair):<7}{by:<12}{same:<11}{c['before']:>7.3f}{c['during']:>8.3f}{c['after']:>8.3f}{c['change']:>+8.3f}"
             f"{c['wander']:>8.3f}{c['score']:>7.1f}   {own}")
 
+    section("FEASIBILITY (data volumes are estimates: the PoC sends nothing)")
+    sensors = {t: run.trace[t]["final"]["tree"]["sensors"] for t in TREES}
+    worst = {t: compact_state([s]) for t, s in sensors.items()}
+    now = compact_state(o["fast_final"] + o["slow_final"])
+    say(f"  ODAC state    one sum per pair + two per sensor, {STATE_BYTES_PER_VALUE} B each: {sum(worst.values()):,} B at most "
+        f"(fast {worst['fast']:,} B, slow {worst['slow']:,} B), {now:,} B at the end of this run")
+    start = sum(run.trace[t]["memory_start"] for t in TREES)
+    end = sum(run.trace[t]["memory_end"] for t in TREES)
+    say(f"  memory        River's Python objects, measured: {start / 1e3:.0f} kB after the first sample, {end / 1e3:.0f} kB at the end of this run")
+    fast_us, slow_us = o["us_per_sample_fast"], o["us_per_sample_slow"]
+    budget = 100 * fast_us / 1e6 / run_poc.FAST["rate_s"]
+    say(f"  speed         {fast_us} µs/sample fast tree ({len(sensors['fast'])} sensors), {slow_us} µs/sample slow tree "
+        f"({len(sensors['slow'])} sensors); the fast tree uses {budget:.4f} % of its {run_poc.FAST['rate_s']} s budget")
+    n = sum(len(s) for s in sensors.values())
+    stream = stream_per_day(n)
+    volumes = ", ".join(f"{label} {sent_per_day(n, a) / 1e3:.0f} kB ({stream / sent_per_day(n, a):.0f}× less)"
+                        for a, label in ((0, "no alert"), (1, "1 alert"), (5, "5 alerts")))
+    say(f"  data sent     stream {stream / 1e6:.1f} MB/day ({n} streams × 1 Hz × {BYTES_PER_VALUE} B); {volumes}")
+    grace = {t: run_poc.GRACE * cfg["rate_s"] / 60 for t, cfg in TREES.items()}
+    say(f"  decisions     a merge needs n ≥ {run_poc.GRACE} samples ({grace['fast']:.0f} min fast tree, {grace['slow']:.0f} min slow tree), "
+        f"where e = {bound_at(run_poc.GRACE):.3f}")
+    alert_keys = {(a["tree"], a["t_min"]) for a in run.alerts}
+    late = [(t, f) for t, cfg in TREES.items() for f in run.trace[t]["fired"] if f["t_s"] >= cfg["warmup_s"]]
+    for t, f in sorted(late, key=lambda item: item[1]["t_s"]):
+        kind = f["kind"] + (" (▲ alert)" if (t, minutes(f["t_s"])) in alert_keys else "")
+        say(f"                {minutes(f['t_s'])} min, {t} tree, {kind}: the leaf had n={f['n']:,}, e={f['e']:.3f}")
+    if not late:
+        say("                no split or merge after warm-up in this run")
+
     if run.problems:
         section("WARNINGS")
         for p in run.problems:
@@ -509,6 +593,24 @@ def results_table(runs: list[Run], say) -> None:
         n_static = sum(r.official["static_first_min"] is not None for r in rs)
         n_alert = sum(bool(r.alerts) for r in rs)
         say(f"{sc:<9}{len(rs):>5}  {f'{n_static}/{len(rs)}':<19}{f'{n_alert}/{len(rs)}':<14}{spread:<26}{' '.join(isolated) or '–'}")
+
+    say()
+    say(f"FEASIBILITY over {len(runs)} run(s)")
+    sensors = {t: runs[0].trace[t]["final"]["tree"]["sensors"] for t in TREES}
+    n = sum(len(s) for s in sensors.values())
+    speed = [r.official["us_per_sample_fast"] for r in runs]
+    memory = [sum(r.trace[t]["memory_start"] for t in TREES) for r in runs]
+    at_alert = [alert_firing(r, a)["n"] for r in runs for a in r.alerts]
+    say(f"  ODAC state            {sum(compact_state([s]) for s in sensors.values()):,} B at most in compact form; "
+        f"River's Python objects about {statistics.median(memory) / 1e3:.0f} kB at most")
+    say(f"  speed, fast tree      median {statistics.median(speed):.1f} µs/sample (range {min(speed)}-{max(speed)})")
+    one = sent_per_day(n, 1)
+    say(f"  data sent, 1 alert    {one / 1e3:.0f} kB/day, {stream_per_day(n) / one:.0f}× less than the {stream_per_day(n) / 1e6:.1f} MB/day stream")
+    if at_alert:
+        say(f"  samples before alert  median {statistics.median(at_alert):,.0f} (range {min(at_alert):,}-{max(at_alert):,}) in the leaf that fired; "
+            f"minimum allowed {run_poc.GRACE}")
+    else:
+        say(f"  samples before alert  no alerts in these runs; minimum allowed {run_poc.GRACE}")
 
 
 # ---------------------------------------------------------------- figures

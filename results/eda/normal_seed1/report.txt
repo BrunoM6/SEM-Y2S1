@@ -9,7 +9,7 @@ RUN VALUES
   slow tree    6 streams, one sample every 30 s, test every 60 samples (30 min), warm-up 180 min, merge grace 600 samples (300 min)
   ODAC         confidence_level=0.05, tau=0.1; streams standardized on the first 10 min, then × 0.1
   static rule  any T > 70 °C or any V > 4.5 mm/s
-  speed        27.6 µs/sample fast tree, 26.8 µs/sample slow tree
+  speed        26.2 µs/sample fast tree, 23.4 µs/sample slow tree
 
 STREAMS (each Δ is that period's mean minus the mean of the first period)
 ─────────────────────────────────────────────────────────────────────────
@@ -120,5 +120,14 @@ RNOMC PAIRS THAT CHANGED MOST (rolling mean: up to 360 min, windows touching the
   T1-V4  no tree     no           0.577   0.613   0.589  +0.036   0.020    1.8   –
   T2-T5  slow tree   yes          0.068   0.091   0.079  +0.023   0.014    1.6   0.101 at the end
   T6-V1  no tree     no           0.571   0.596   0.581  +0.025   0.017    1.4   –
+
+FEASIBILITY (data volumes are estimates: the PoC sends nothing)
+───────────────────────────────────────────────────────────────
+  ODAC state    one sum per pair + two per sensor, 8 B each: 936 B at most (fast 720 B, slow 216 B), 488 B at the end of this run
+  memory        River's Python objects, measured: 126 kB after the first sample, 50 kB at the end of this run
+  speed         26.2 µs/sample fast tree (12 sensors), 23.4 µs/sample slow tree (6 sensors); the fast tree uses 0.0026 % of its 1 s budget
+  data sent     stream 6.2 MB/day (18 streams × 1 Hz × 4 B); no alert 144 kB (43× less), 1 alert 187 kB (33× less), 5 alerts 360 kB (17× less)
+  decisions     a merge needs n ≥ 600 samples (10 min fast tree, 300 min slow tree), where e = 0.050
+                444.0 min, fast tree, split: the leaf had n=25,560, e=0.008
 
 Checks passed: traced events match run_poc.evaluate(), and the margins explain every firing.

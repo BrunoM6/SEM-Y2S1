@@ -25,6 +25,61 @@ Static rule: alarm if any temperature > 70 °C or any vibration RMS > 4.5 mm/s.
 
 This is a toy model meant to show the mechanism, not a validated robot model.
 
+### Model equations
+
+Samples are 1 s apart. $k$ is the sample index and $t = k - 3600$ is the time in seconds, because the first hour is burn-in and is discarded.
+
+Drivers shared by all joints:
+
+- Cycle phase $\phi = k \bmod 12$.
+- Speed override $u$: 0.6, 0.8 or 1.0 in busy blocks of 6–16 min, 0 in idle gaps of 1–4 min.
+- Payload $m \sim \mathcal{U}(2, 5)$ kg, one value per cycle, which gives the factor $p = 1 + 0.15\cdot(m - 3.5)/3.5$.
+- Ambient temperature $T_{\mathrm{amb}}$ and event ramp $r$, which is 0 until 6 h and 1 from 7 h:
+
+$$T_{\mathrm{amb}}(t) = 22 + 0.5\cdot\sin\left(\frac{2\pi t}{21600}\right)$$
+
+$$r(t) = \mathrm{clip}\left(\frac{t - 21600}{3600}, 0, 1\right)$$
+
+Each joint $j$ moves in the segments $(a, b, A)$ listed in the table below, and $P_j$ is 0 outside them:
+
+$$v_j = u\cdot\xi_j\cdot P_j(\phi), \qquad \xi_j \sim \mathcal{N}(1, 0.05^2) \text{ per cycle}$$
+
+$$P_j(\phi) = A\cdot\left[\sin^2\left(\frac{\pi(\phi + 0.5 - a)}{b - a}\right) + 0.25\right] \quad \text{for } a \le \phi < b$$
+
+$M_j = 1$ while the joint moves ($v_j > 0$), otherwise 0.
+
+| Joint | Segments $(a, b, A)$ | Current $I_j$ [A] | Vibration $V_j$ [mm/s] | Target temperature $T^{\star}_j$ [°C] |
+|---|---|---|---|---|
+| J1 base | (0, 3, 1.0), (6, 9, 1.0) | $0.3\cdot p + 3.0\cdot v_1 + 0.20\cdot m\cdot M_1 + \varepsilon_I$ | $0.4 + 1.6\cdot v_1 + \varepsilon_V$ | $T_{\mathrm{amb}} + 28\cdot H_1/H_{\mathrm{ref},1}$ |
+| J2 shoulder | (0, 3, 0.8), (4, 6, 1.0), (10, 12, 0.4) | $4.0\cdot p + 3.5\cdot v_2 + 0.60\cdot m\cdot M_2 + \varepsilon_I$ | $0.5 + 1.8\cdot v_2 + \varepsilon_V$ | $T_{\mathrm{amb}} + 46\cdot H_2/H_{\mathrm{ref},2}$ |
+| J3 elbow | (0, 3, 0.9), (4, 6, 1.0), (10, 12, 0.5) | $2.5\cdot p + 3.0\cdot v_3 + 0.40\cdot m\cdot M_3 + \varepsilon_I$ | $0.5 + 1.7\cdot v_3 + \varepsilon_V$ | $T_{\mathrm{amb}} + 41\cdot H_3/H_{\mathrm{ref},3}$ |
+| J4 wrist roll | (6, 9, 0.7) | $0.2\cdot p + 1.2\cdot v_4 + 0.05\cdot m\cdot M_4 + \varepsilon_I$ | $0.3 + 1.0\cdot v_4 + \varepsilon_V$ | $T_{\mathrm{amb}} + 18\cdot H_4/H_{\mathrm{ref},4}$ |
+| J5 wrist pitch | (0, 3, 0.3), (10, 12, 0.6) | $0.6\cdot p + 1.0\cdot v_5 + 0.10\cdot m\cdot M_5 + \varepsilon_I$ | $0.3 + 0.9\cdot v_5 + \varepsilon_V$ | $T_{\mathrm{amb}} + 18\cdot H_5/H_{\mathrm{ref},5}$ |
+| J6 flange | (6, 9, 0.9) | $0.1\cdot p + 0.8\cdot v_6 + 0.05\cdot m\cdot M_6 + \varepsilon_I$ | $0.3 + 0.8\cdot v_6 + \varepsilon_V$ | $T_{\mathrm{amb}} + 15\cdot H_6/H_{\mathrm{ref},6}$ |
+
+The noise terms $\varepsilon_I \sim \mathcal{N}(0, 0.15^2)$ and $\varepsilon_V \sim \mathcal{N}(0, 0.08^2)$ are drawn every second.
+
+Heat $H_j$ drives a first-order thermal model with a 600 s time constant, and the measured temperature is rounded to 0.1 °C:
+
+$$H_j = 0.35\cdot I_j^2 + 0.6\cdot v_j$$
+
+$$T_j[k] = T_j[k-1] + \frac{T^{\star}_j[k] - T_j[k-1]}{600}, \qquad T_j[0] = \frac{1}{600}\sum_{i=0}^{599} T^{\star}_j[i]$$
+
+$$T^{\mathrm{meas}}_j = \mathrm{round}(T_j + \varepsilon_T, 1), \qquad \varepsilon_T \sim \mathcal{N}(0, 0.15^2)$$
+
+$H_{\mathrm{ref},j}$ is the mean of $H_j$ over the seconds with $u = 1$, computed for each run.
+
+What each scenario adds, with $w \sim \mathcal{U}(0, 1)$ drawn every second:
+
+| scenario | added terms |
+|---|---|
+| `normal` | none |
+| `summer` | $T_{\mathrm{amb}} \leftarrow T_{\mathrm{amb}} + 10\cdot r(t)$ |
+| `bearing` | $V_3 \leftarrow V_3 + 1.6\cdot r(t)\cdot w^2\cdot M_3$ and $H_3 \leftarrow H_3 + 0.8\cdot r(t)\cdot M_3$ |
+| `gain` | $I_3 \leftarrow I_3 + 1.5\cdot r(t)\cdot v_3$ and $H_3 \leftarrow H_3 + 1.5\cdot r(t)\cdot v_3$ |
+
+The fault terms are added after $H_j$ and $H_{\mathrm{ref},j}$ are computed, so $H_{\mathrm{ref},3}$ does not change and the extra current in `gain` is not squared into the heat.
+
 ## Edge pipeline (`run_poc.py`)
 
 - **Two ODAC trees, one per time scale.** Fast tree: 12 current and vibration streams at 1 Hz, tested every 2 min. Slow tree: 6 temperatures as 30 s means, tested every 30 min. With one tree at 1 Hz, the temperature subtree kept splitting and merging every few minutes, because a freshly split child judged slow signals on only 2 minutes of data.
