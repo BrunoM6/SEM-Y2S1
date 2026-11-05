@@ -389,18 +389,25 @@ def report(run: Run, say, top: int, chosen: list) -> None:
     say(f"  static rule  any T > {T_LIMIT:.0f} °C or any V > {V_LIMIT} mm/s")
     say(f"  speed        {o['us_per_sample_fast']} µs/sample fast tree, {o['us_per_sample_slow']} µs/sample slow tree")
 
-    section("STREAMS")
-    a, b = f"0-{ONSET:.0f} min", f"{RAMP_END:.0f}-{END:.0f} min"
-    say(f"  {'':10}| {a:<31}| {b:<31}|")
-    say(f"  {'':10}| {'mean':>7}{'sd':>7}{'min':>8}{'max':>8} | {'mean':>7}{'sd':>7}{'min':>8}{'max':>8} |"
-        f"{'Δmean':>8}  {'s over limit':>12}")
+    section("STREAMS (each Δ is that period's mean minus the mean of the first period)")
+    cuts = (0, FAULT_START, FAULT_START + FAULT_RAMP, DURATION)
+    periods = list(zip(cuts, cuts[1:]))
+    spans = [f"{a // 60}-{b // 60}" for a, b in periods]
+    titles = [f"{span} min" for span in spans]
+    if run.scenario != "normal":
+        titles[1] += ", event ramp"
+    deltas = "".join(f"{'Δ' + span:>10}" for span in spans[1:])
+    say(f"  {'':10}| " + " | ".join(f"{title:<30}" for title in titles) + " |")
+    say(f"  {'':10}| " + " | ".join(f"{'mean':>7}{'sd':>7}{'min':>8}{'max':>8}" for _ in periods)
+        + f" |{deltas}  {'s over limit':>12}")
     for kind, j in itertools.product("IVT", range(1, 7)):
         name, x = f"{kind}{j}", run.streams[f"{kind}{j}"]
-        p, q = x[:FAULT_START], x[FAULT_START + FAULT_RAMP :]
+        parts = [x[a:b] for a, b in periods]
+        stats = " | ".join(f"{p.mean():>7.2f}{p.std():>7.2f}{p.min():>8.2f}{p.max():>8.2f}" for p in parts)
+        changes = "".join(f"{p.mean() - parts[0].mean():>+10.2f}" for p in parts[1:])
         limit = {"T": T_LIMIT, "V": V_LIMIT}.get(kind)
         over = f"{int((x > limit).sum()):,}" if limit else ""
-        say(f"  {name:<3}{UNITS[kind]:<7}| {p.mean():>7.2f}{p.std():>7.2f}{p.min():>8.2f}{p.max():>8.2f} |"
-            f" {q.mean():>7.2f}{q.std():>7.2f}{q.min():>8.2f}{q.max():>8.2f} |{q.mean() - p.mean():>+8.2f}  {over:>12}")
+        say(f"  {name:<3}{UNITS[kind]:<7}| {stats} |{changes}  {over:>12}")
 
     section("RESULT")
     first = o["first_alert_min"]
@@ -546,7 +553,7 @@ def mark_run(ax, run: Run, tree: str | None = None, labels: bool = False) -> Non
         ax.axvspan(ONSET, RAMP_END, color=WASH, lw=0, zorder=0)
         ax.axvline(ONSET, color=INK2, lw=0.7, ls=DOTTED, zorder=1)
         if labels:
-            top_label(ax, ONSET, "event starts", ha="right")
+            top_label(ax, ONSET, f"event ramp {ONSET:.0f}-{RAMP_END:.0f} min", ha="right")
     alerts = [a for a in run.alerts if tree in (None, a["tree"])]
     for a in alerts:
         ax.axvline(a["t_min"], color=CRITICAL, lw=1, zorder=3)
@@ -884,7 +891,7 @@ def parse_pairs(text: str, ap: argparse.ArgumentParser) -> list[tuple[str, str]]
     for part in filter(None, text.split(",")):
         names = part.strip().split("-")
         if len(names) != 2 or names[0] == names[1] or not set(names) <= valid:
-            ap.error(f"--pairs: '{part}' is not a pair of two different streams such as V3-I3")
+            ap.error(f"'{part}' is not a pair of two different streams such as V3-I3")
         pairs.append(tuple(sorted(names)))
     return pairs
 
